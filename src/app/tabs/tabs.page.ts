@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { Router } from '@angular/router';
 import { LoadingController, ToastController } from '@ionic/angular';
@@ -10,7 +10,7 @@ import { UserService } from '../service/user.service';
   templateUrl: './tabs.page.html',
   styleUrls: ['./tabs.page.scss'],
 })
-export class TabsPage implements OnInit {
+export class TabsPage implements OnInit, OnDestroy {
   private userID: string;
   private user: any;
   private userCheckIn: any = [];
