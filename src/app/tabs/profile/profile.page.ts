@@ -41,7 +41,6 @@ export class ProfilePage implements OnInit {
     private loadingCtrl: LoadingController,
     private router: Router,
   ) { 
-   
   }
 
   ngOnInit() {
@@ -59,15 +58,24 @@ export class ProfilePage implements OnInit {
     })
   }
 
+  ionViewWillEnter(){
+
+  }
+
   getUserData(){
     this.db.object('/user/' + this.userID).valueChanges().subscribe(data => {
       this.userData = data;
-      this.firstName = this.userData.firstName;
-      this.checkIn = this.userData.checkIn;
       if(this.userData.checkIn){
         this.userCheckIn = this.userData.checkIn;
         this.userCheckIn.reverse();
       }
+    })
+    
+    const ref = this.storage.ref('photos/'+ this.userID +'.jpg');
+    ref.getDownloadURL().subscribe(res => {
+      console.log('res', res);
+      this.userData.photo = res;
+      this.photo = res;
     })
   }
 
@@ -154,15 +162,11 @@ export class ProfilePage implements OnInit {
   }
 
   upload(){
-    // const file = this.dataURLtoFile(this.photo, 'file');
     const filePath = 'photos/'+ this.userID +'.jpg';
     this.presentLoading("Update profile picture...");
-    // const task = ref.put(file);
-    // this.navCtrl.navigateBack('');
 
     if(this.boolCamera){
       const file = this.dataURLtoFile(this.photo, 'file');
-      console.log('file: ', file);
       const ref = this.storage.ref(filePath);
       const task = ref.put(file);
     }
@@ -180,7 +184,6 @@ export class ProfilePage implements OnInit {
   LogOut(){
     this.authSrv.logoutUser()
       .then(res => {
-          console.log(res);
           this.router.navigateByUrl('/login');
         }).catch(error => {
           console.log(error);

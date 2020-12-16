@@ -16,7 +16,7 @@
                         <input type="file" *ngIf="isDesktop" #filePicker (change)="onFileChoose($event)" />
                         <ion-avatar class="avatar">
                             <img src="assets/icon/profile.png" *ngIf="!userData.photo" />
-                            <img src="{{userData.photo}}" *ngIf="userData.photo">
+                            <img src="{{photo}}" *ngIf="userData.photo">
                         </ion-avatar>
                     </ion-row>
                 </ion-col>
