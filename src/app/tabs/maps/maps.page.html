@@ -1,0 +1,36 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Maps</ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <ion-grid>
+        <ion-row *ngIf="!boolCheckIn" style="align-self: center;" class="ion-text-center">
+            <ion-col color="success">
+                <ion-button expand="full" (click)="toggleCheckIn()">Check-in Location</ion-button>
+            </ion-col>
+            <ion-col size='auto'>
+                <ion-fab-button horizontal='end' (click)='showCurrentLoc()'>
+                    <ion-icon name='locate-outline'></ion-icon>
+                </ion-fab-button>
+            </ion-col>
+        </ion-row>
+        <ion-row *ngIf="boolCheckIn">
+            <ion-col>
+                <ion-item>
+                    <ion-label position="floating">Where am I?</ion-label>
+                    <ion-input [(ngModel)]="checkInName"></ion-input>
+                </ion-item>
+            </ion-col>
+            <ion-col size='auto'>
+                <ion-button color="success" (click)="addCheckIn()" [disabled]="checkInName == ''"> Check In </ion-button>
+            </ion-col>
+            <ion-col size='auto'>
+                <ion-button color="danger" (click)="toggleCheckIn()">
+                    <ion-icon name="close"></ion-icon>
+                </ion-button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <div #map id="map"></div>
+</ion-content>

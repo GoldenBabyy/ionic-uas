@@ -1,0 +1,34 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/home/tabs/friend-list"></ion-back-button>
+        </ion-buttons>
+        <ion-title>Add Friend</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-grid>
+        <ion-row class="ion-justify-content-center">
+            <ion-col size="12" size-sm="6">
+                <ion-item lines="none" class="ion-margin-top border">
+                    <ion-input type="text" [(ngModel)]="searchEmail" placeholder="Enter your friend's email"></ion-input>
+                    <ion-icon slot="end" name="search-outline" (click)="searchFriend()" style="cursor: pointer"></ion-icon>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row class="ion-justify-content-center" *ngIf="isUser">
+            <ion-col size="6" size-sm="3">
+                <ion-avatar class="avatar">
+                    <img src="assets/icon/profile.png" *ngIf="!searchedFriend.photo" />
+                    <img src="{{searchedFriend.photo}}" *ngIf="searchedFriend.photo">
+                </ion-avatar>
+                <ion-text class="ion-text-center">
+                    <h2 class="ion-text-center"> <strong>{{ searchedFriend.firstName }} {{ searchedFriend.lastName }} </strong></h2>
+                </ion-text>
+                <ion-button class="ion-margin-top" expand="block" (click)="addFriend()" *ngIf="!isFriend"> Add Friend </ion-button>
+                <div class="ion-text-center ion-margin-top" *ngIf="isFriend"> User has been added in Friend List </div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

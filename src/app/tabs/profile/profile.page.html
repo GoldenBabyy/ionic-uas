@@ -1,0 +1,54 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Profile</ion-title>
+        <ion-button style="margin-right: 10px;" slot='end' color="danger " expand="block " mode="ios " (click)="LogOut() "> Logout </ion-button>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <div id="container">
+        <ion-grid class="ion-margin-horizontal">
+            <ion-row class="ion-justify-content-center">
+                <ion-col size="7" size-sm="2">
+                    <ion-row class="ion-align-items-end ion-justify-content-end">
+                        <ion-fab-button color="primary" class='fab' (click)="presentPhotoFab()">
+                            <ion-icon name="camera"></ion-icon>
+                        </ion-fab-button>
+                        <input type="file" *ngIf="isDesktop" #filePicker (change)="onFileChoose($event)" />
+                        <ion-avatar class="avatar">
+                            <img src="assets/icon/profile.png" *ngIf="!userData.photo" />
+                            <img src="{{userData.photo}}" *ngIf="userData.photo">
+                        </ion-avatar>
+                    </ion-row>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col size="12" size-sm="6" offset-sm="3">
+                    <ion-text class="ion-text-center">
+                        <h1 class="ion-no-margin ion-margin-top">
+                            <strong>{{userData.firstName}} {{userData.lastName}}</strong>
+                        </h1>
+                        <h4 class="ion-no-margin ion-padding-bottom"> 00000019886 </h4>
+                    </ion-text>
+                    <div class="ion-padding ion-margin-top border">
+                        <ion-card-title class="ion-margin-bottom text-card ion-text-center"> My Feeds </ion-card-title>
+                        <div class="text-gray" *ngIf="!userData.checkIn" style="font-size:0.8em"> Tidak terdapat history lokasi </div>
+                        <div *ngIf="userData.checkIn">
+                            <ion-item *ngFor="let checkIn of userData.checkIn; let i = index" (press)="onPress(i)">
+                                <ion-label> <span class="span-date">{{ checkIn.tanggalCheckIn }}</span>
+                                    <div style="padding-top: 4px;">{{ checkIn.namaCheckIn }}</div>
+                                </ion-label>
+                            </ion-item>
+                        </div>
+                    </div>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col size="12" size-sm="6" offset-sm="3">
+                    <ion-text class="ion-text-center kesan">
+                        "Thankyou Ko Yehez and Ko James for this semester! A lot of things, not only knowledge but also other life lessons that I have gotten."
+                    </ion-text>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>
+</ion-content>
